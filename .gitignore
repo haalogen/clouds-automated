@@ -1,7 +1,10 @@
+*.txt
+*.zip
+*.jpg
+*.png
 *.pdf
 *.djvu
 .ipynb_checkpoints/
-*.py
 *.h
 *.cpp
 *applied.png
