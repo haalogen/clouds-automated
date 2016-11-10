@@ -1,9 +1,9 @@
 #!/bin/bash
 
-
-for i in `seq 1 100`;
+echo "############## Shot Time: " $1 " ################"
+for i in `seq 1 50`;
 do
 
 	echo "====== Experiment" $i "======"
-	python Find-Cloud-2Images-Diff-Brute.py
+	python -W ignore Find-Cloud-2Images-FFT.py $1
 done 
