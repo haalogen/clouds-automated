@@ -6,4 +6,4 @@ do
 
 	echo "====== Experiment" $i "======"
 	python -W ignore Find-Cloud-2Images-FFT-Quant.py $1
-done 
+done

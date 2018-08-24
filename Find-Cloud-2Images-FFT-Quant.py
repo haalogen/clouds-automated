@@ -22,7 +22,7 @@ viewangle_x_err = settings[3] # in degrees
 num_shades = int(settings[4])
 min_height = settings[5]
 
-resolution_x = BIG_WIDTH;
+resolution_x = BIG_WIDTH
 viewangle = np.pi * viewangle_x / 180.0
 
 
@@ -120,7 +120,7 @@ chi_elems = np.array( f.histogram() )
 
 
 fft_chi = np.fft.fft2(chi)
-print 'fft_chi was calulated'
+print 'fft_chi was calculated'
 fft_g = np.fft.fft2(g_mat)
 
 
@@ -131,7 +131,7 @@ for i in xrange(num_shades):
     if chi_elems[i] > 0:
         sp_g_frag_chi[i] = np.fft.ifft2(fft_g * fft_chi[i])[hf:, wf:]
 
-print 'sp_g_frag_chi was calulated'
+print 'sp_g_frag_chi was calculated'
 
 
 # || Projection of g_frag on f ||^2
@@ -162,7 +162,7 @@ fft_chi_X = np.fft.fft2(chi_X)
 norm_gfrag_sqr = np.fft.ifft2(fft_gsqr * fft_chi_X)[hf:, wf:].astype('float')
 
 
-norm_E_gfrag_sqr = np.fft.ifft2(fft_g * fft_chi_X)[hf:, wf:].astype('float')                         ** 2 / (hf * wf)
+norm_E_gfrag_sqr = np.fft.ifft2(fft_g * fft_chi_X)[hf:, wf:].astype('float') ** 2 / (hf * wf)
 
 
 numerator = norm_gfrag_sqr - norm_pr_gfrag_sqr
@@ -203,9 +203,10 @@ resolution_x_err = 2; #pixels
 
 err_distance = base_err * resolution_x / ( 2 * np.tan(viewangle / 2.0) * x_pixel_distance )
 
-err_viewangle = (viewangle_x_err * np.pi / 180.0) * ( base * resolution_x /                                                    (4.0 * x_pixel_distance * (np.sin(viewangle / 2.0)) ** 2) )
+err_viewangle = (viewangle_x_err * np.pi / 180.0) * ( base * resolution_x / (4.0 * x_pixel_distance *
+                                                                             (np.sin(viewangle / 2.0)) ** 2) )
 
-err_resolution = resolution_x_err * base * resolution_x /                     ( 2 * np.tan(viewangle / 2.0) * (x_pixel_distance) ** 2 ) 
+err_resolution = resolution_x_err * base * resolution_x / ( 2 * np.tan(viewangle / 2.0) * (x_pixel_distance) ** 2 )
 
 total_error = np.sqrt( err_distance ** 2 + err_viewangle ** 2 + err_resolution ** 2 )
 ratio_error = total_error * 100.0 / altitude
@@ -216,9 +217,16 @@ print "Pixel distance:", x_pixel_distance
 print "Altitude: %f +- %f meters (error is %f percent)" % (altitude, 
         total_error, ratio_error)
 
+# (For brightness-altitude correlation)
+# Integral brightness of fragment === sum of all pixel values 
+# in fragment
+integral_brightness = f_mat.sum()
+print 'integral_brightness:', integral_brightness
+
 
 with open('results/' + date + '.txt', mode='a') as f:
-    s = str(x_pixel_distance) + ' ' + str(altitude) + ' ' + str(total_error) + '\n'
+    s = str(x_pixel_distance) + ' ' + str(altitude) + ' ' + \
+        str(total_error) + ' ' + str(integral_brightness) + '\n'
     f.write(s)
   
 
